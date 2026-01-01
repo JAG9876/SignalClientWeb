@@ -6,4 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="appsettings.Development.json.sample" />
+  </ItemGroup>
+
 </Project>

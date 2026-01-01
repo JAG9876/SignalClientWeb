@@ -6,16 +6,26 @@ namespace SignalClientWeb.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IConfiguration _configuration;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(HomeViewModel model)
         {
-            return View();
+            string clientId = _configuration["Authentication:Google:ClientId"] ?? "Not configured";
+            //ViewData["GoogleClientId"] = clientId;
+            model.GoogleClientId = clientId;
+            return View(model);
+        }
+
+        public IActionResult SigninGoogle()
+        {
+            return View(); // Might have to specify the view
         }
 
         public IActionResult Privacy()

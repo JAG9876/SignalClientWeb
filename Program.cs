@@ -30,6 +30,10 @@ namespace SignalClientWeb
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
+            app.MapControllerRoute(
+                name: "signin-google",
+                pattern: "{controller=Home}/{action=SigninGoogle}");
+
             app.Run();
         }
     }

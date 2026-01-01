@@ -1,4 +1,5 @@
-﻿@{
+﻿@model HomeViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 
@@ -36,7 +37,7 @@
     <!-- <button onclick="loginWithGoogle();">Login</button> -->
 
     <div id="g_id_onload"
-         data-client_id="935891679520-ur0sfnqsi9kchrtlhtmefdnsqup9771s.apps.googleusercontent.com"
+         data-client_id=@Model.GoogleClientId
          data-callback="handleCredentialResponse"
          data-auto_prompt="false">
     </div>

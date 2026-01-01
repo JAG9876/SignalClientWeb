@@ -1,0 +1,12 @@
+{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft.AspNetCore": "Warning"
+        }
+    },
+    "GoogleLogin":  {
+        "ClientId": "your-development-client-id.apps.googleusercontent.com",
+        "ClientSecret": "your-development-client-secret"
+    }
+}
