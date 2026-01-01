@@ -18,7 +18,6 @@ namespace SignalClientWeb.Controllers
         public IActionResult Index(HomeViewModel model)
         {
             string clientId = _configuration["Authentication:Google:ClientId"] ?? "Not configured";
-            //ViewData["GoogleClientId"] = clientId;
             model.GoogleClientId = clientId;
             return View(model);
         }
