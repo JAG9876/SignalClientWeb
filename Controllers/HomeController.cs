@@ -24,7 +24,9 @@ namespace SignalClientWeb.Controllers
 
         public IActionResult SigninGoogle()
         {
-            return View(); // Might have to specify the view
+            // Validate Google Sign-In response here (this is just a placeholder)
+
+            return Ok();
         }
 
         public IActionResult Privacy()
