@@ -5,12 +5,13 @@ function handleCredentialResponse(response) {
     // Google returns a JSON Web Token (JWT) credential
     const idToken = response.credential;
 
+    // Decode the JWT to get user info (for demonstration purposes)
     const data = jwtDecode(idToken);
     console.log("ID: " + data.sub); // Unique Google ID
     console.log('Full Name: ' + data.name);
     console.log('Email: ' + data.email);
 
-    // Send the 'response.credential' JWT to your backend server
+    // Send the 'response.credential' JWT to my backend server
     fetch('/Home/SigninGoogle', {
         method: 'POST',
         headers: {
@@ -20,8 +21,17 @@ function handleCredentialResponse(response) {
     })
         .then(response => {
             if (response.ok) {
-                alert('Successfully signed in with Google');
-                //window.location.href = '/Home/'; // Redirect to home or dashboard
+                // Handle token storage
+                response.json().then(data => {
+                    //console.log(data.accessToken);
+                    //console.log(data.refreshToken);
+
+                    //localStorage.setItem('accessToken', data.accessToken);
+                    localStorage.setItem('refreshToken', data.refreshToken);
+                    //refreshToken = localStorage.getItem('refreshToken');
+
+                    // alert('Successfully signed in with Google');
+                });
             }
             else {
                 console.error('Login failed on the server.');

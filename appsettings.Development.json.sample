@@ -5,8 +5,16 @@
             "Microsoft.AspNetCore": "Warning"
         }
     },
-    "GoogleLogin":  {
-        "ClientId": "your-development-client-id.apps.googleusercontent.com",
-        "ClientSecret": "your-development-client-secret"
+    "Authentication": {
+        "Google": {
+            "ClientId": "your-development-client-id.apps.googleusercontent.com",
+            "ClientSecret": "your-development-client-secret"
+        }
+    },
+    "Jwt": {
+        "SecretKey": "YourDevelopmentSecretKeyHere1234",
+        "Issuer": "YourDevelopmentIssuer",
+        "Audience": "YourDevelopmentAudience",
+        "ExpirationInMinutes": 60
     }
 }

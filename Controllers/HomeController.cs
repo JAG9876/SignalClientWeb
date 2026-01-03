@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SignalClientWeb.Models;
+using Google.Apis.Auth;
 
 namespace SignalClientWeb.Controllers
 {
@@ -22,11 +23,39 @@ namespace SignalClientWeb.Controllers
             return View(model);
         }
 
-        public IActionResult SigninGoogle()
+        public class TokenRequest
         {
-            // Validate Google Sign-In response here (this is just a placeholder)
+            public required string IdToken { get; set; }
+        }
 
-            return Ok();
+        public async Task<IActionResult> SigninGoogle([FromBody] TokenRequest request)
+        {
+            try
+            {
+                var payload = await GoogleJsonWebSignature.ValidateAsync(request.IdToken);
+
+                // Create and return tokens or session
+                var tokenProvider = new Users.Infrastructure.TokenProvider(_configuration);
+                var accessToken = tokenProvider.Create(new Users.User
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Email = payload.Email,
+                    EmailVerified = payload.EmailVerified
+                });
+
+
+                var result = Ok(new {
+                    Message = $"Identity confirmed: {payload.Email}",
+                    AccessToken = accessToken,
+                    RefreshToken = tokenProvider.GenerateRefreshToken()
+                });
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(new { Message = "Invalid ID token", Error = ex.Message });
+            }
         }
 
         public IActionResult Privacy()
